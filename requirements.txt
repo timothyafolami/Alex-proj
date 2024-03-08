@@ -1,5 +1,6 @@
 openai
 langchain
+langchain-openai
 pandas
 numpy
 notebook
@@ -7,3 +8,8 @@ faiss-cpu
 python-dotenv
 streamlit
 prefect
+pypdf
+unstructured
+networkx
+openpyxl
+tiktoken
