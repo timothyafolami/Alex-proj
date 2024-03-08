@@ -1,0 +1,9 @@
+openai
+langchain
+pandas
+numpy
+notebook
+faiss-cpu
+python-dotenv
+streamlit
+prefect
