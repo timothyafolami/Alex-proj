@@ -1,6 +1,7 @@
 openai
 langchain
 langchain-openai
+langchain-community
 pandas
 numpy
 notebook
