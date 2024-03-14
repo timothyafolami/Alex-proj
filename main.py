@@ -18,7 +18,7 @@ import os
 
 load_dotenv()
 
-OpenAI_key = os.getenv("openai_api_key")
+OpenAI_key = st.secrets.opena_api_key
 
 styl = f"""
 <style>
