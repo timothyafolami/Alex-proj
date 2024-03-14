@@ -14,3 +14,6 @@ unstructured
 networkx
 openpyxl
 tiktoken
+streamlit-chat
+audio_recorder_streamlit
+streamlit-float
