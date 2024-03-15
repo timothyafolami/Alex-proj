@@ -19,10 +19,12 @@ import os
 load_dotenv()
 
 OpenAI_key = st.secrets.openai_api_key 
+# OpenAI_key = os.getenv('openai_api_key')
+
 
 styl = f"""
 <style>
-    .stTextInput {{
+    .stChatInput {{
       position: fixed;
       bottom: 3rem;
     }}
@@ -77,7 +79,7 @@ Ask if they would like to add anything else.
 For pick-up orders, collect the intended time for pick-up, and make sure it is within restaurants working hours (11h am to 10h pm).
 
 6) Payment Facilitation: Assist the customer with the payment process, whether directing them to pay at the counter or via an online payment link.
-
+                                                                
 Important Considerations:
 Verify the customer is over 18 years old before taking orders that include alcohol. 
 Provide details such as calories and preparation time only upon request. 
@@ -139,7 +141,7 @@ with textcontainer:
         footer_container.float("bottom: 0rem;")
         
     else:
-        query = st.text_input('Question' , key="input")
+        query = st.chat_input(placeholder="Your message ....", key="input")
 
 # if the query is not empty, then the bot will respond
     if query:
@@ -147,7 +149,8 @@ with textcontainer:
             context = find_match(query)
             response = conversation.predict(input=f"Context:\n {context} \n\n Query:\n{query}")
         st.session_state.requests.append(query)
-        st.session_state.responses.append(response) 
+        st.session_state.responses.append(response)
+    
 with response_container:
     if st.session_state['responses']:
         for i in range(len(st.session_state['responses'])):
@@ -155,5 +158,3 @@ with response_container:
             if i < len(st.session_state['requests']):
                 message(st.session_state["requests"][i], is_user=True,key=str(i)+ '_user')
 
-
-# Float the footer container and provide CSS to target it with
