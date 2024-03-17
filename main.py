@@ -163,10 +163,6 @@ with response_container:
                 message(st.session_state["requests"][i], is_user=True,key=str(i)+ '_user')
 
 
-print(st.session_state['requests'])
-print(st.session_state['responses'])
-print(get_conversation_string())
-
 # checking for order placed !!! in the responses
 if "ORDER PLACED!!!" in st.session_state['responses'][-1]:
     st.balloons()
