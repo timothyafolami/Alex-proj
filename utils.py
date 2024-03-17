@@ -1,5 +1,8 @@
 from openai import OpenAI
 import streamlit as st
+from langchain import PromptTemplate
+from langchain.chains import LLMChain
+from langchain_openai import OpenAI as llm_openai
 from langchain.vectorstores import FAISS
 from langchain.embeddings.openai import OpenAIEmbeddings
 from dotenv import load_dotenv
@@ -39,3 +42,27 @@ def speech_to_text(audio_data):
             file=audio_file
         )
     return transcript
+
+def prepare_order(conversation):
+    conversation_history = conversation
+
+    llm = llm_openai(api_key=OpenAI_key)
+
+    prompt = PromptTemplate(
+        input_variables=["conversation"],
+        template="""
+        You are a helpful assistant that helps people order food online. 
+        You have a conversation with a customer who wants to order food. 
+        The conversation is as follows: {conversation}
+
+        Your task is to extract the order details from the conversation and place the order.
+        Your're returning the order details as a string like this "id_item" (column #) and "quantities" (column #).
+        For example if the customer wants to order 2 pizzas and 1 burger, 
+        you should return Pizza 2 on the first line and Burger 1 on the second line.
+        """,
+    )
+
+    chain = LLMChain(llm=llm, prompt=prompt)
+
+    response = chain.run(conversation=conversation_history)
+    return response

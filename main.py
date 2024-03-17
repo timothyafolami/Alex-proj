@@ -47,7 +47,7 @@ if 'requests' not in st.session_state:
 llm = ChatOpenAI(temperature=0.5, model_name="gpt-3.5-turbo-1106", openai_api_key=OpenAI_key)
 
 if 'buffer_memory' not in st.session_state:
-            st.session_state.buffer_memory=ConversationBufferWindowMemory(k=10,return_messages=True)
+            st.session_state.buffer_memory=ConversationBufferWindowMemory(k=20,return_messages=True)
 
 
 system_msg_template = SystemMessagePromptTemplate.from_template(template="""
@@ -97,6 +97,10 @@ Make the customer feel heard and understood.
 Never use emojis, keeping communication professional.
 Ensure order details are confirmed comprehensively to avoid misunderstandings and ensure clarity. 
 Clarify any ambiguities, aiming for precise order accuracy.
+
+                                                                
+At the end of the conversation, then user has placed his order, return a summary of the order.
+After user has confirmed the order, please return a single message : "ORDER PLACED!!!".
 """)
 
 
@@ -158,3 +162,35 @@ with response_container:
             if i < len(st.session_state['requests']):
                 message(st.session_state["requests"][i], is_user=True,key=str(i)+ '_user')
 
+
+print(st.session_state['requests'])
+print(st.session_state['responses'])
+print(get_conversation_string())
+
+# checking for order placed !!! in the responses
+if "ORDER PLACED!!!" in st.session_state['responses'][-1]:
+    st.balloons()
+    st.success("ORDER PLACED!!")
+    # now placing the order
+    conversation = get_conversation_string()
+    order = prepare_order(conversation)
+    # saving in a text file for the restaurant
+    with open("order.txt", "w") as file:
+        file.write(order)
+    
+    # sending to the sidebar for the restaurant to see and download
+    st.sidebar.markdown("## Order")
+    st.sidebar.markdown("Download the order")
+    st.sidebar.markdown("Click the button below to download the order")
+    st.sidebar.download_button(
+    label="Download Text File",
+    data=order,
+    file_name="order.txt",
+    mime="text/plain"
+)
+    # clearing the session state and resetting the chat
+    st.session_state['requests'] = []
+    st.session_state['responses'] = ["How can I assist you?"]
+    st.session_state.buffer_memory.clear()
+    st.session_state.buffer_memory=ConversationBufferWindowMemory(k=20,return_messages=True)
+    conversation = ConversationChain(memory=st.session_state.buffer_memory, prompt=prompt_template, llm=llm, verbose=True)
