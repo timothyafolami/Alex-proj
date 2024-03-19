@@ -1,0 +1,67 @@
+Id Items
+
+1 : Freshly Cooked Tortilla Corn Chips 
+2 : Guacamole (small) 
+3 : Guacamole (large) 
+4 : Pico De Gallo Salsa (small) 
+5 : Pico De Gallo Salsa (large) 
+6 : Jalapeño Frickles 
+7 : Pork Taquitos 
+8 : Veggie Taquitos 
+9 : Sweet Potato Fries 
+10 : Spicy Buffalo Chicken Wings 
+11 : Muchacha Chilli Salt Dusted Chicken Wings 
+12 : Muchacha Layered Dip 
+13 : Jalapeño Queso Dip 
+14 : Cheese 
+15 : Black Bean-Jalapeño 
+16 : Chicken, Beef or Pork 
+17 : Veggie 
+18 : Veggie 
+19 : Chicken 
+20 : Beef 
+21 : Pork 
+22 : Baja Style Fish 
+23 : Seared Rare Ahi Tuna 
+24 : Prawn Tacos 
+25 : Veggie 
+26 : Chicken 
+27 : Beef 
+28 : Pork 
+29 : Baja Style Fish 
+30 : Tropical Thunder 
+31 : Beef & Green Chilli 
+32 : Muchacha Nachos 
+33 : Chilli Con Carne Nachos 
+34 : Muchacha (Dessert) Nachos 
+35 : Fully Loaded Chilli Con Carne 
+36 : Taco Salad 
+37 : Mexi Slaw 
+38 : Spanish Rice 
+39 : Black Beans 
+40 : Jalapeños 
+41 : Flour Tortillas (2) 
+42 : Corn Tortillas (3) 
+43 : Guacamole 
+44 : Add Chicken, Beef or Pork to Nachos 
+45 : Add Chicken, Beef or Pork to Bows & Salads 
+46 : Add Baja Fish to Bows & Salads 
+47 : Add Seared Rare Ahi Tuna or Prawns to Bows & Salads 
+48 : Cheese Quesadilla 
+49 : Baby Burrito 
+50 : Baby Burrito 
+51 : Nachos 
+52 : 2 Tacos 
+53 : Coke 
+54 : Coke Zero 
+55 : Sprite 
+56 : Sprite Zero 
+57 : Tap water 
+58 : Sparkling water 
+59 : Orange juice 
+60 : Lemonade 
+61 : Pineaple juice 
+62 : Corona 
+63 : Sol 
+64 : XX 
+65 : Patron Tequila 

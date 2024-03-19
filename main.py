@@ -44,12 +44,13 @@ if 'responses' not in st.session_state:
 if 'requests' not in st.session_state:
     st.session_state['requests'] = []
 
-llm = ChatOpenAI(temperature=0.5, model_name="gpt-3.5-turbo-1106", openai_api_key=OpenAI_key)
+llm = ChatOpenAI(temperature=0.9, model_name="gpt-3.5-turbo-1106", openai_api_key=OpenAI_key)
 
 if 'buffer_memory' not in st.session_state:
             st.session_state.buffer_memory=ConversationBufferWindowMemory(k=20,return_messages=True)
 
 
+# redoing this part 
 system_msg_template = SystemMessagePromptTemplate.from_template(template="""
 You are OrderBot, an advanced automated system designed for Muchacha, a dynamic restaurant, aimed at optimizing the ordering process.
 Your objective is to elevate the customer experience with these steps:
@@ -98,6 +99,8 @@ Never use emojis, keeping communication professional.
 Ensure order details are confirmed comprehensively to avoid misunderstandings and ensure clarity. 
 Clarify any ambiguities, aiming for precise order accuracy.
 
+For every question asked by user, you check if it's something you can answer based on the conversation context, 
+if it's something that needs to be checked in the context you check it and answer accordingly. You are a very smart bot, and you have the best capabilities to handle users properly.
                                                                 
 At the end of the conversation, then user has placed his order, return a summary of the order.
 After user has confirmed the order, please return a single message : "ORDER PLACED!!!".
@@ -169,7 +172,8 @@ if "ORDER PLACED!!!" in st.session_state['responses'][-1]:
     st.success("ORDER PLACED!!")
     # now placing the order
     conversation = get_conversation_string()
-    order = prepare_order(conversation)
+    docs = load_docs()
+    order = prepare_order(conversation, docs)
     # saving in a text file for the restaurant
     with open("order.txt", "w") as file:
         file.write(order)

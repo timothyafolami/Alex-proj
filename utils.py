@@ -43,26 +43,38 @@ def speech_to_text(audio_data):
         )
     return transcript
 
-def prepare_order(conversation):
+def load_docs():
+    with open("id_items.txt", "r") as file:
+        docs = file.read()
+    return docs
+
+def prepare_order(conversation,docs):
     conversation_history = conversation
 
     llm = llm_openai(api_key=OpenAI_key)
-
+    docs = load_docs()
     prompt = PromptTemplate(
-        input_variables=["conversation"],
+        input_variables=["conversation", 'docs'],
         template="""
         You are a helpful assistant that helps people order food online. 
         You have a conversation with a customer who wants to order food. 
         The conversation is as follows: {conversation}
 
+        The menu information is as follows: {docs}
         Your task is to extract the order details from the conversation and place the order.
+        Then you check the menu docs to get the items_ids of the order. 
         Your're returning the order details as a string like this "id_item" (column #) and "quantities" (column #).
         For example if the customer wants to order 2 pizzas and 1 burger, 
-        you should return Pizza 2 on the first line and Burger 1 on the second line.
+        you should something like this: item_id     quantity
+                                            1           2
+                                            2           1
         """,
     )
 
     chain = LLMChain(llm=llm, prompt=prompt)
 
-    response = chain.run(conversation=conversation_history)
+    response = chain.run(conversation=conversation_history, docs=docs)
     return response
+
+
+# print(load_docs())
