@@ -20,7 +20,7 @@ import os
 load_dotenv()
 
 OpenAI_key = st.secrets.openai_api_key 
-# OpenAI_key = os.getenv('openai_api_key')
+# OpenAI_key = os.getenv('openai_api_key_1')
 
 
 styl = f"""
@@ -46,7 +46,7 @@ if 'responses' not in st.session_state:
 if 'requests' not in st.session_state:
     st.session_state['requests'] = []
 
-llm = ChatOpenAI(temperature=0.1, model_name="gpt-3.5-turbo", openai_api_key=OpenAI_key)
+llm = ChatOpenAI(temperature=0.1, model_name="gpt-4", openai_api_key=OpenAI_key)
 
 if 'buffer_memory' not in st.session_state:
             st.session_state.buffer_memory=ConversationBufferWindowMemory(k=20,return_messages=True)
